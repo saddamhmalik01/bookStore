@@ -19,4 +19,6 @@ Route::post('/login', [ AuthController::class,'login' ]);
 Route::post('/register', [ AuthController::class,'register' ]);
 Route::middleware('auth:sanctum')->group(function(){
    Route::get('/books',[BooksController::class,'index']);
+   Route::get('/books/getFilters',[BooksController::class,'getFilters']);
+   Route::get('/books/getFilterValues',[BooksController::class,'getFilterValues']);
 });

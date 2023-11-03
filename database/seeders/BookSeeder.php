@@ -23,12 +23,11 @@ class BookSeeder extends Seeder
     }
     private function seedBooksTable(mixed $books): void
     {
-        foreach ($books as $book)
-        {
-            $books_model = new Books();
-            $is_book = $books_model->where('isbn',$book['isbn'])->orwhere('name',$book['name'])->first();
-                if(!$is_book)
-                {
+        foreach ($books as $book) {
+            try {
+                $books_model = new Books();
+                $is_book = $books_model->where('isbn', $book['isbn'])->orwhere('title', $book['title'])->first();
+                if (!$is_book) {
                     $books_model->create([
                         'title' => $book['title'],
                         'author_id' => $this->seedAuthorTable($book['author']),
@@ -36,12 +35,16 @@ class BookSeeder extends Seeder
                         'description' => $book['description'],
                         'isbn' => $book['isbn'],
                         'image' => $book['image'],
-                        'published_on' =>$book['published'],
+                        'published_on' => $book['published'],
                         'publisher_id' => $this->seedPublisherTable($book['publisher']),
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ]);
                 }
+
+            }catch (\Exception $e){
+                dd($e);
+            }
 
         }
     }

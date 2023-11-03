@@ -134,8 +134,8 @@ return [
         'key' => env('MEILISEARCH_KEY',null),
         'index-settings' => [
            \App\Models\Books::class => [
-               'filterableAttributes'=> ['published_on','genre_id','author_id','publisher_id'],
-               'sortableAttributes' => ['title','id','isbn','created_at'],
+               'filterableAttributes'=> ['genre_id','author_id','publisher_id'],
+               'sortableAttributes' => ['title','id','isbn','published_on','created_at'],
            ]
         ],
     ],

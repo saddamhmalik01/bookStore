@@ -21,6 +21,9 @@ class Books extends Model
         return [
             'title' => $this->title,
             'isbn' => $this->isbn,
+            'genre_id' => $this->genre_id,
+            'author_id' => $this->author_id,
+            'publisher_id' => $this->publisher_id,
             'published_on' => $this->published_on,
             'author' => $this->author->name,
             'publisher' => $this->publisher->name,
