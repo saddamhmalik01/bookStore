@@ -38,7 +38,7 @@
 <script>
 import axios from "axios";
 import { reactive, ref, onMounted, inject, onBeforeMount } from 'vue';
-import router from "../routes/admin.js";
+import router from "../routes/client.js";
 
 export default {
     setup() {

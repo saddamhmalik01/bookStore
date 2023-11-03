@@ -104,7 +104,7 @@
 <script>
 import {ref, onBeforeMount, onMounted, inject, reactive, computed} from 'vue';
 import axios from "axios";
-import router from "../routes/admin.js";
+import router from "../routes/client.js";
 export default {
     setup(){
         let books = ref()
