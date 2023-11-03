@@ -104,6 +104,7 @@
 <script>
 import {ref, onBeforeMount, onMounted, inject, reactive, computed} from 'vue';
 import axios from "axios";
+import router from "../routes/admin.js";
 export default {
     setup(){
         let books = ref()
@@ -128,6 +129,10 @@ export default {
             },
         };
         const fetchBooks = async () => {
+            if(!cookies.get('access_token')){
+                await router.push('/login');
+                return;
+            }
             const response = await axios.get("/api/books?page="+currentPage.value+"&search="+form.search+
                 "&sort_by="+form.sort_by+"&sort_direction="+form.sort_direction+filtering.value,
                 axiosConfig);
