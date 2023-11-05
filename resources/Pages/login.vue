@@ -51,6 +51,7 @@ export default {
                 if(response.data.success){
                     showAlert("alert-success", response.data.message);
                     $cookies.set('access_token', response.data.data.token);
+                    $cookies.set('role', response.data.data.role);
                     isAuthenticated.value = true;
                     window.location = '/';
                 }
