@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\BooksController;
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -21,4 +23,9 @@ Route::middleware('auth:sanctum')->group(function(){
    Route::get('/books',[BooksController::class,'index']);
    Route::get('/books/getFilters',[BooksController::class,'getFilters']);
    Route::get('/books/getFilterValues',[BooksController::class,'getFilterValues']);
+
+
+   Route::middleware(AdminMiddleware::class)->group(function (){
+       Route::get('admin/dashboard',[DashboardController::class,'index']);
+   });
 });

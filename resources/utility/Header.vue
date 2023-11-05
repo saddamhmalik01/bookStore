@@ -49,10 +49,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-router-link {
-    color: #fff;
-    text-decoration: none;
-}
-</style>

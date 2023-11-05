@@ -18,7 +18,7 @@
                                     Search here..
                                     <input type="text"  @input="fetchBooks" v-model="form.search" class="form-control">
                                 </div>
-                                <div class="col-12 col-sm-6 col-md-3 col-lg-1">
+                                <div class="col-12 col-sm-6 col-md-3 col-lg-2">
                                     Sort Field
                                     <select class="form-control" v-on:change="fetchBooks" v-model="form.sort_by">
                                         <option value="id">ID</option>
@@ -42,7 +42,7 @@
                                         <option v-for="(filter, index) in filters" :value="index">{{ filter }}</option>
                                     </select>
                                 </div>
-                                <div v-if="selected_filter" class="col-12 col-sm-6 col-md-4 col-lg-2">
+                                <div v-if="selected_filter" class="col-12 col-sm-6 col-md-4 col-lg-1">
                                     Filter by
                                     <select class="form-control" v-on:change="applyFiltersAndFetch" v-model="selected_filter_value">
                                         <option v-for="(filterValue, index) in filterValues" :value="filterValue.id">{{ filterValue.name }}</option>

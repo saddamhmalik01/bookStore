@@ -26,7 +26,7 @@ class BooksController extends Controller
         $filters = $request->only(['published_on', 'genre_id', 'author_id', 'publisher_id']);
         $limit = $request->input('limit', 12);
         $sortBy = $request->input('sort_by', 'title');
-//dd($sortBy);
+
         $books = Books::search($searchQuery);
 
         if (!empty($filters['genre_id'])) {

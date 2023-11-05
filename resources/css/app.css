@@ -18,3 +18,7 @@
 .pagination-container button {
     margin: 0 10px;
 }
+router-link {
+    color: #fff;
+    text-decoration: none;
+}

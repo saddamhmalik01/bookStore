@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware(AdminMiddleware::class)->get('/admin', function () {
+    return view('admin');
+})->where('any', '.*');
+
+Route::get('/admin/{any}', function () {
+    return view('admin');
+})->where('any', '.*');
+
 Route::get('/{any}', function () {
     return view('welcome');
-})->where('any', '.*');
+})->where('any', '.*')->name('/client');
