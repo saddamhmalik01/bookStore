@@ -6,7 +6,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <router-link v-if="!isHomeRoute" to="/" style="text-decoration: none; color: white">Home</router-link>
+
         </div>
         <button v-if="isAuthenticated && is_admin" class="btn btn-outline-light my-2 my-sm-0 mx-2" @click="changePanel">
             {{ admin ? 'Admin Panel' : 'Client Panel' }}
@@ -17,50 +17,57 @@
 </template>
 
 <script>
-import {computed, inject, onMounted, ref} from "vue";
+import { computed, inject, onMounted, ref } from "vue";
 import {useRoute} from "vue-router";
-import router from "../routes/client.js";
 
 export default {
+    name: "Header",
     setup() {
         let cookies = inject('$cookies');
         let isAuthenticated = ref(false);
         let is_admin = ref(false);
-        let admin = !window.location.href.includes('admin')
+        let admin = !window.location.href.includes('admin');
+        let router = null;
 
         const isLogin = () => {
             if (cookies.get('access_token')) {
                 isAuthenticated.value = true;
             }
-            if(cookies.get('role') === 'admin')
-            {
-                is_admin.value = true
+            if (cookies.get('role') === 'admin') {
+                is_admin.value = true;
             }
-        }
+        };
 
         const logout = () => {
             if (cookies.get('access_token')) {
                 cookies.remove('access_token');
                 cookies.remove('role');
                 isAuthenticated.value = false;
-                router.push('/login')
+                import("../routes/admin.js").then((adminRouter) => {
+                    router = adminRouter.default;
+                });
+            } else {
+                import("../routes/client.js").then((clientRouter) => {
+                    router = clientRouter.default;
+                });
             }
-        }
+        };
+
         const changePanel = () => {
             let location = window.location;
             if (location.href.includes('admin')) {
-                window.location.href = '/'
+                window.location.href = '/';
             } else {
                 window.location.href = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/admin/dashboard';
             }
-        }
-
-
+        };
 
         const route = useRoute();
         const isHomeRoute = computed(() => route.path === '/');
 
-        onMounted(isLogin)
+        onMounted(() => {
+            isLogin();
+        });
 
         return {
             isAuthenticated,
@@ -68,8 +75,8 @@ export default {
             admin,
             changePanel,
             logout,
-            isHomeRoute
-        }
-    }
+        };
+    },
 };
+
 </script>

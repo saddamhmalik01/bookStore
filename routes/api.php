@@ -23,9 +23,12 @@ Route::middleware('auth:sanctum')->group(function(){
    Route::get('/books',[BooksController::class,'index']);
    Route::get('/books/getFilters',[BooksController::class,'getFilters']);
    Route::get('/books/getFilterValues',[BooksController::class,'getFilterValues']);
+   Route::get('/getBookDetails/{id}',[BooksController::class,'getBookDetails']);
+
 
 
    Route::middleware(AdminMiddleware::class)->group(function (){
        Route::get('admin/dashboard',[DashboardController::class,'index']);
+       Route::post('/updateBook/{id}',[BooksController::class,'updateBookDetails']);
    });
 });

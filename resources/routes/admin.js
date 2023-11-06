@@ -3,6 +3,7 @@ import AdminLayout from "../js/admin/adminLayout.vue";
 import adminDashboard from '../Pages/admin/dashboard.vue';
 import Books from '../Pages/admin/books.vue';
 import vueCookie from 'vue-cookies';
+import editBook from "../Pages/admin/editBook.vue";
 
 const routes = [
     {
@@ -18,6 +19,12 @@ const routes = [
                 path : "/admin/books",
                 name : 'BooksDashboard',
                 component: Books
+            },
+            {
+                path: '/admin/edit-book/:id',
+                name: 'editBook',
+                component: editBook,
+                props: true
             }
         ],
     },

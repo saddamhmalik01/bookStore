@@ -6,9 +6,11 @@ use App\Models\Author;
 use App\Models\Books;
 use App\Models\Genre;
 use App\Models\Publisher;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -77,6 +79,47 @@ class BooksController extends Controller
     private function getPublisherList(): Collection
     {
         return Publisher::all('id','name');
+    }
+
+    public function getBookDetails($id): JsonResponse
+    {
+      $book = Books::find($id);
+        return ($book) ? successResponse('',[
+            'bookDetails'=> $book,
+            'authors' => Author::all('id','name'),
+            'publishers' => Publisher::all('id','name'),
+            'genres' => Genre::all('id','name')
+        ])
+            : errorResponse('Something went wrong');
+    }
+
+    public function updateBookDetails(Request $request): JsonResponse
+    {
+        $book_id = $request->id;
+        $book = Books::find($book_id);
+        if($book){
+            $data = [
+                'title' => $request->title,
+                'author_id' => $request->author_id,
+                'genre_id' => $request->genre_id,
+                'description' => $request->description,
+                'isbn' => $request->isbn,
+                'image' => $request->image,
+                'published_on' => $request->published_on,
+                'publisher_id' => $request->publisher_id,
+                'updated_at' => Carbon::now(),
+            ];
+
+            return $book->update($data)
+                ? successResponse('Book Updated Successfully')
+                : errorResponse('Something went wrong');
+        }
+        return errorResponse('Book not found');
+    }
+
+    public function doDirtyThings(): void
+    {
+//      $books->searchable();
     }
 
 

@@ -114,6 +114,7 @@ export default {
         let filtering = ref('')
         let selected_filter_value = ref()
         let searchAndFilters = ref(false)
+        let is_admin = ref(false);
         const currentPage = ref(1)
         const totalPages = ref(1)
 
@@ -132,6 +133,10 @@ export default {
             if(!cookies.get('access_token')){
                 await router.push('/login');
                 return;
+            }
+            if(cookies.get('role') === 'admin')
+            {
+                is_admin.value = true
             }
             const response = await axios.get("/api/books?page="+currentPage.value+"&search="+form.search+
                 "&sort_by="+form.sort_by+"&sort_direction="+form.sort_direction+filtering.value,
@@ -176,15 +181,11 @@ export default {
             }
         };
         const getPages = computed(() => {
-            console.log("Total Pages: ", totalPages.value);
-            console.log("Current Page: ", currentPage.value);
 
             const numVisiblePages = 10;
             const startPage = Math.max(1, currentPage.value - Math.floor(numVisiblePages / 2));
             const endPage = Math.min(startPage + numVisiblePages - 1, totalPages.value);
 
-            console.log("Start Page: ", startPage);
-            console.log("End Page: ", endPage);
             return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
         });
 
@@ -224,6 +225,7 @@ export default {
             selected_filter_value,
             searchAndFilters,
             getPages,
+            is_admin,
             goToNextPage,
             goToPage,
             goToPreviousPage,

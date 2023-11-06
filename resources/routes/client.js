@@ -3,6 +3,7 @@ import login from '../Pages/login.vue';
 import Dashboard from '../Pages/dashboard.vue';
 import Register from '../Pages/register.vue';
 import notFound from "../Pages/notFound.vue";
+import editBook from "../Pages/admin/editBook.vue";
 const routes = [
     {
         path : '/',
@@ -23,6 +24,7 @@ const routes = [
         path: '/:catchAll(.*)',
         component: notFound,
     },
+
 
 ];
 
