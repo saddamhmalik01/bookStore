@@ -81,6 +81,27 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="card m-1 d-flex text-center">
+                <nav aria-label="Page navigation" class="pt-3">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                            <a class="page-link" @click="goToPreviousPage" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item" v-for="page in getPages" :key="page" :class="{ active: currentPage === page }">
+                            <a class="page-link" @click="goToPage(page)">{{ page }}</a>
+                        </li>
+                        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                            <a class="page-link" @click="goToNextPage" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 

@@ -44,13 +44,14 @@ export default {
                 cookies.remove('role');
                 isAuthenticated.value = false;
                 import("../routes/admin.js").then((adminRouter) => {
-                    router = adminRouter.default;
+                    window.location = window.location.origin
                 });
             } else {
                 import("../routes/client.js").then((clientRouter) => {
                     router = clientRouter.default;
                 });
             }
+            router.push('/login');
         };
 
         const changePanel = () => {

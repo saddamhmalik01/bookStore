@@ -58,8 +58,6 @@
 <script>
 import axios from "axios";
 import VueCookie from "vue-cookies";
-import router from '../../routes/admin.js'
-
 
 export default {
     props: {
@@ -85,6 +83,7 @@ export default {
             authors: [],
             publishers: [],
             genres: [],
+            router : null,
         };
     },
     beforeCreate() {
@@ -111,10 +110,13 @@ export default {
                 .then((response) => {
                     this.message = response.data.message;
                     this.messageClass = "alert-success";
-                    setTimeout(function(){
-
-                       router.push('/admin/books')
-                    }, 5000);
+                    import ('../../routes/admin.js').then(adminRouter => {
+                        let router;
+                        router = adminRouter.default;
+                        setTimeout(function(){
+                            router.push('/admin/books')
+                        }, 5000);
+                    });
                 })
                 .catch((error) => {
                     this.message = error.message

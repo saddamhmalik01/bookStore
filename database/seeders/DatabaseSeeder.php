@@ -15,16 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => Hash::make('12345678')
-        ]);
-
-        $adminSeeder  = new AdminSeeder();
-        $adminSeeder->run();
-
-        $bookSeeder = new BookSeeder();
-        $bookSeeder->run();
+        \App\Models\Genre::factory(20)->create();
+        \App\Models\Author::factory(20)->create();
+        \App\Models\Publisher::factory(20)->create();
+        \App\Models\Books::factory(500)->create();
     }
 }
